@@ -40,6 +40,6 @@ SELECT
 FROM
 	covid_19_data;
 ```
-This results in 197248 rows and 67 columns.
+There are 197248 rows and 67 columns in this dataset.
 
 ## Data Cleaning
