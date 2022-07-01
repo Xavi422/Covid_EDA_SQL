@@ -17,5 +17,29 @@ SQL Environment: Microsoft SQL Server Managment Studio (T-SQL)
 
 
 ## First Look at Data
+Firstly, let's take a glance at the dataset
+```sql
+SELECT
+  *
+FROM
+  covid_19_data;
+```
+Then, get the shape of the dataset
+```sql
+--Number of columns
+SELECT 
+	COUNT(*) as num_of_cols
+FROM 
+	INFORMATION_SCHEMA.TABLES 
+WHERE 
+	TABLE_NAME = 'covid_19_data';
 
-Examine shape of the dataset
+--Number of rows
+SELECT 
+	COUNT(*) as num_of_rows
+FROM
+	covid_19_data;
+```
+This results in 197248 rows and 67 columns.
+
+## Data Cleaning
