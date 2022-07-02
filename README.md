@@ -4,7 +4,7 @@
 
 More info: https://github.com/owid/covid-19-data/tree/master/public/data
 
-**Motivation**: I recently recovered from Covid and decided to finally check out a covid-19 dataset to see what insights I can build from the data using SQL.
+**Motivation**: I recently tested positive for Covid-19 and decided to finally check out a covid-19 dataset to see what insights I can build from the data using SQL.
 
 SQL Environment: Microsoft SQL Server Managment Studio (T-SQL)
 
@@ -79,8 +79,68 @@ What questions do we want to answer with our data?
 - How does YTD total covid-19 cases differ between the US and Canada (accounting for population)?
 ## Data Cleaning
 
- To answer the above questions accurately, we need to ensure that the data being used is clean.
+To answer the above questions accurately, we need to ensure that the data being used is clean.
  
- To answer the above questions, we need numerical data from the `new_cases`, `new_deaths` and `population` columns for Canada and the US.
+To answer the above questions, we need numerical data from the `new_cases`, `new_deaths` and `population` columns for Canada and the US.
  
- Let's check for missing data in these columns
+Let's check for missing data in these columns
+ 
+```sql
+-- NULL checking
+SELECT
+	location, new_cases, new_deaths, population
+FROM
+	covid_19_data
+WHERE
+	location IN ('United States', 'Canada') AND (new_deaths IS NULL OR new_cases IS NULL OR population IS NULL );
+ ```
+We can see that there are a couple of NULL values in the `new_cases` column, none in the `population` column and many in the `new_deaths` column. 
+
+Since we will only be taking the sum of the `new_deaths` and the `new_cases` columns, we don't need to change the NULL values since the SUM function in SQL ignores NULL values.
+
+Everything else is in an acceptable format for the data analysis we want to carry out.
+
+## Analysis
+
+1. YoY Comparison
+```sql
+-- YoY Comparison of Total Covid Cases in Canada (January 1st to June 27th) for 2021 and 2022
+SELECT
+	location, SUM(new_cases) as yoy_total_2021,
+	(SELECT SUM(new_cases)
+	 FROM covid_19_data
+	 WHERE location = 'Canada' AND (date BETWEEN '2022-01-01' AND '2022-06-27')) as yoy_total_2022
+FROM 
+	covid_19_data
+WHERE
+	location = 'Canada' AND (date BETWEEN '2021-01-01' AND '2021-06-27')
+GROUP BY location;
+```
+The total cases recorded between January 1st, 2021 and June 27th, 2021 in Canada were 827,609 and 1,726,369 for the same period during 2022. This isn't surprising given that there were much more stringent covid-19 measures in during this period in the past year.
+
+2. YTD Fatality Rate as a percentage
+```sql
+--YTD Fatality Rate of Covid-19 in Canada
+SELECT
+	location, (SUM(CAST(new_deaths as INT))/SUM(new_cases))*100 as fatality_rate_pct
+FROM
+	covid_19_data
+WHERE location = 'Canada' AND (date BETWEEN '2022-01-01' AND '2022-06-27')
+GROUP BY location;
+```
+The YTD fatality rate in Canada seems to be around 0.67% which is great news for me. The chances of me dying from covid appear to be pretty low ignoring many factors such as age, comorbidities etc.
+
+3. Comparison of YTD total covid-19 cases between the US and Canada over population (pct)
+**NOTE**: Population values do not change throughout this time period
+```sql
+---YTD total covid-19 cases/population pct; US vs Canada
+SELECT
+	location, (SUM(new_cases)/population)*100 as total_cases_YTD
+FROM
+	covid_19_data
+WHERE location IN ('United States', 'Canada') AND (date BETWEEN '2022-01-01' AND '2022-06-27')
+GROUP BY location, population;
+```
+The total cases/population YTD for Canada is 4.53% and 9.69% for the US. This could be a reflection of the more lenient covid-19 prevention measures in the US. 
+
+## Conclusion
