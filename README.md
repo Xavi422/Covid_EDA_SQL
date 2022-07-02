@@ -71,8 +71,10 @@ FROM
 ```
 This version of the dataset stores data from January 1<sup>st</sup>, 2020 to June 27<sup>th</sup>, 2022
 
-## Ask Phase
+## Ask
 
 What questions do we want to answer with our data?
-
+- What is the YoY comparison of total covid-19 cases in Canada for January 1<sup>st</sup> to June 27th in 2021 and 2022?
+- What is the YTD fatality rate of covid-19 in Canada?
+- How does YTD total covid-19 cases differ between the US and Canada (accounting for population)?
 ## Data Cleaning
