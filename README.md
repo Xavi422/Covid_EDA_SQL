@@ -58,7 +58,7 @@ WHERE
 	TABLE_NAME = 'covid_19_data';
 ```
 
-We can see that many of the columns that store traditionally numeric data are casted as nvarchar(strings). This is important to know as we may run into calculation problems further into the analysis.
+We can see that many of the columns that store traditionally numeric data are casted as nvarchar(strings). This is important to know as we may run into calculation problems further into the analysis because of this.
 
 Next, we want to check what date range our dataset covers
 
@@ -74,7 +74,7 @@ This version of the dataset stores data from January 1<sup>st</sup>, 2020 to Jun
 ## Ask
 
 What questions do we want to answer with our data?
-- What is the YoY comparison of total covid-19 cases in Canada for January 1<sup>st</sup> to June 27th in 2021 and 2022?
+- What is the YoY comparison of total covid-19 cases in Canada for January 1<sup>st</sup> to June 27<sup?th</sup> in 2021 and 2022?
 - What is the YTD fatality rate of covid-19 in Canada?
 - How does YTD total covid-19 cases differ between the US and Canada (accounting for population)?
 ## Data Cleaning
@@ -116,7 +116,7 @@ WHERE
 	location = 'Canada' AND (date BETWEEN '2021-01-01' AND '2021-06-27')
 GROUP BY location;
 ```
-The total cases recorded between January 1st, 2021 and June 27th, 2021 in Canada were 827,609 and 1,726,369 for the same period during 2022. This isn't surprising given that there were much more stringent covid-19 measures in during this period in the past year.
+The total cases recorded between January 1<sup>st</sup>, 2021 and June 27<sup>th<\sup>, 2021 in Canada were 827,609 and 1,726,369 for the same period during 2022. This isn't surprising given that there were much more stringent covid-19 measures in during this period in the past year.
 
 2. YTD Fatality Rate as a percentage
 ```sql
@@ -141,6 +141,7 @@ FROM
 WHERE location IN ('United States', 'Canada') AND (date BETWEEN '2022-01-01' AND '2022-06-27')
 GROUP BY location, population;
 ```
-The total cases/population YTD for Canada is 4.53% and 9.69% for the US. This could be a reflection of the more lenient covid-19 prevention measures in the US. 
+The total cases/population YTD for Canada is 4.53% and 9.69% for the US. Canada has less the half of the percentage value that the US has. This could be reflecting the effect of the more lenient measures against covid-19 taken by the US during this year.
 
 ## Conclusion
+Many other interesting insights can be found from this dataset and I'll be exploring some in the future but for now I'm glad that the fatality rate in Canada is ~0.67%.
