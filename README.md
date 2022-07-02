@@ -1,6 +1,6 @@
-# Covid_EDA_SQL
+# Exploratory Data Analysis of a Covid-19 Dataset 
 
-Exploratory Data Analysis of a Covid-19 Dataset (source: https://ourworldindata.org/covid-deaths  last update: 28/06/2022)
+(source: https://ourworldindata.org/covid-deaths  last update: 28/06/2022)
 
 More info: https://github.com/owid/covid-19-data/tree/master/public/data
 
@@ -60,6 +60,19 @@ WHERE
 
 We can see that many of the columns that store traditionally numeric data are casted as nvarchar(strings). This is important to know as we may run into calculation problems further into the analysis.
 
+Next, we want to check what date range our dataset covers
 
+```sql
+--Date Range
+SELECT
+	MIN(CAST(date as DATE)) as 'from', MAX(CAST(date as DATE)) as 'to'
+FROM
+	covid_19_data
+```
+This version of the dataset stores data from January 1<sup>st</sup>, 2020 to June 27<sup>th</sup>, 2022
+
+## Ask Phase
+
+What questions do we want to answer with our data?
 
 ## Data Cleaning
