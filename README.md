@@ -78,3 +78,9 @@ What questions do we want to answer with our data?
 - What is the YTD fatality rate of covid-19 in Canada?
 - How does YTD total covid-19 cases differ between the US and Canada (accounting for population)?
 ## Data Cleaning
+
+ To answer the above questions accurately, we need to ensure that the data being used is clean.
+ 
+ To answer the above questions, we need numerical data from the `new_cases`, `new_deaths` and `population` columns for Canada and the US.
+ 
+ Let's check for missing data in these columns
