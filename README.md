@@ -28,7 +28,7 @@ SELECT
 FROM
   covid_19_data;
 ```
-Next,let's find the shape of the dataset
+Next, let's find the shape of the dataset
 ```sql
 --Number of columns
 SELECT 
@@ -46,7 +46,7 @@ FROM
 ```
 There are 197248 rows and 67 columns in this dataset.
 
-Since this is a public dataset, we should look at the table metadata to understand what data types are assigned to each column. We can do this bey accessing the SQL Server INFORMATION_SCHEMA views for our table's columns.
+Since this is a public dataset, we should look at the table metadata to understand what data types are assigned to each column. We can do this by accessing the SQL Server INFORMATION_SCHEMA views for our table's columns.
 
 ```sql
 ---View Table Metadata
@@ -77,6 +77,7 @@ What questions do we want to answer with our data?
 - What is the YoY comparison of total covid-19 cases in Canada for January 1<sup>st</sup> to June 27<sup?th</sup> in 2021 and 2022?
 - What is the YTD fatality rate of covid-19 in Canada?
 - How does YTD total covid-19 cases differ between the US and Canada (accounting for population)?
+  
 ## Data Cleaning
 
 To answer the above questions accurately, we need to ensure that the data being used is clean.
